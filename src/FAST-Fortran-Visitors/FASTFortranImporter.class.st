@@ -1,3 +1,13 @@
+"
+FASTFortranImporter is used to parse a Fortran source file into a FAST model.
+ The 'onFile:' message takes the absolute or relative path to a .f90 (or other Fortran) file 
+ and returns a model object representing the parsed code.
+ Example:
+    fastModel := FASTFortranImporter new 
+        onFile: '/path/to/your/file.f90'.
+
+ 
+"
 Class {
 	#name : 'FASTFortranImporter',
 	#superclass : 'Object',
