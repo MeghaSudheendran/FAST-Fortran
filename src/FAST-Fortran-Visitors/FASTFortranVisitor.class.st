@@ -666,7 +666,7 @@ FASTFortranVisitor >> visitFASTFortranSubprogram: aFASTFortranSubprogram [
 FASTFortranVisitor >> visitFASTFortranSubroutine: aFASTFortranSubroutine [
 
 	self visitFASTFortranProcedure: aFASTFortranSubroutine.
-	1 halt.
+
 ]
 
 { #category : 'visiting - expressions' }
