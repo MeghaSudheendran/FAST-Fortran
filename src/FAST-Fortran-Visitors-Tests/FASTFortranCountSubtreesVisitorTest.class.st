@@ -22,7 +22,7 @@ FASTFortranCountSubtreesVisitorTest >> testArrayDeclaration [
 	stmt := self arrayDeclaration: 'v' dimensions: #( #( '1' '10' ) ).
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 1
+	self assert: visitor count equals: 3
 ]
 
 { #category : 'tests - statements' }
@@ -32,7 +32,7 @@ FASTFortranCountSubtreesVisitorTest >> testArrayDeclarationImplicitLowerBound [
 	stmt declarators first dimensions first lowerBound: nil.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 1
+	self assert: visitor count equals: 3
 ]
 
 { #category : 'tests - statements' }
@@ -41,7 +41,7 @@ FASTFortranCountSubtreesVisitorTest >> testArrayDeclarationMultipleDimensions [
 	stmt := self arrayDeclaration: 'v' dimensions: #( #('1' '10') #('-10' '-1') ).
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 1
+	self assert: visitor count equals: 4
 ]
 
 { #category : 'tests' }
@@ -55,7 +55,7 @@ FASTFortranCountSubtreesVisitorTest >> testArrayRange [
 		yourself.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 0
+	self assert: visitor count equals: 2
 ]
 
 { #category : 'tests' }
@@ -81,7 +81,7 @@ FASTFortranCountSubtreesVisitorTest >> testAssignementFunctionCall [
 				self scalarVariable: 'b' }).
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 3 "???????"
+	self assert: visitor count equals: 3 
 ]
 
 { #category : 'tests - statements' }
@@ -94,7 +94,7 @@ FASTFortranCountSubtreesVisitorTest >> testAssignementStatementArrayAssigned [
 		yourself.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 1
+	self assert: visitor count equals: 3
 ]
 
 { #category : 'tests - statements' }
@@ -156,7 +156,7 @@ FASTFortranCountSubtreesVisitorTest >> testBlockStatementWithCommentAndStatement
 	block addComment: cmt.
 
 	block accept: visitor.
-	self assert: visitor count equals: 0
+	self assert: visitor count equals: 2
 ]
 
 { #category : 'tests - statements' }
@@ -166,7 +166,7 @@ FASTFortranCountSubtreesVisitorTest >> testCallStatementExpressionArg [
 		self binary: '*' left: #a right: 5 }.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 0
+	self assert: visitor count equals: 2
 ]
 
 { #category : 'tests - statements' }
@@ -186,7 +186,7 @@ FASTFortranCountSubtreesVisitorTest >> testCallStatementWithArgs [
 		self integerLiteral: '5' }.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 0
+	self assert: visitor count equals: 2
 ]
 
 { #category : 'tests' }
@@ -227,7 +227,7 @@ FASTFortranCountSubtreesVisitorTest >> testCommonStatement [
 		yourself.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 0
+	self assert: visitor count equals: 3
 ]
 
 { #category : 'tests - statements' }
