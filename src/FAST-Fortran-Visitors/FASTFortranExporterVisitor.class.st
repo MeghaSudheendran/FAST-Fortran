@@ -948,16 +948,6 @@ FASTFortranExporterVisitor >> visitFASTFortranType: aFASTFortranType [
 			ifFalse: [ length accept: self ] ]
 ]
 
-{ #category : 'visiting' }
-FASTFortranExporterVisitor >> visitFASTFortranTypeKind: aFASTFortranTypeKind [
-
-	aFASTFortranTypeKind ifNotNil: [ :kind |
-		self << '(kind='.
-		kind accept: self.
-		self << ')'
-	]
-]
-
 { #category : 'visiting - expressions' }
 FASTFortranExporterVisitor >> visitFASTFortranUnaryExpression: aFASTFortranUnaryExpression [
 

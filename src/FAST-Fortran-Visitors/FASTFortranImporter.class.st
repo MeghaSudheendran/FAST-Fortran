@@ -26,6 +26,7 @@ FASTFortranImporter >> jsonASTToFAST: jsonAST fromFortranSource: fortranCode [
 	| visitor |
 	visitor := self jsonVisitor.
 	visitor initLineSizes: fortranCode.
+	
 	visitor visitProgramFile: (NeoJSONReader fromString: jsonAST).
 	^visitor model
 ]
@@ -49,10 +50,13 @@ FASTFortranImporter >> onFile: srcFileName [
 		'.
 
 	jsonFileReference  := self tempJsonFileNameFrom: srcFileName.
-
+	
 	cmdReturn := FamixFortranImporter new
 		parseFortran77File: srcFileName asFileReference
 		to: jsonFileReference.
+
+" cmdReturn := 0.
+ jsonFileReference  := srcFileName asFileReference."
 
 	(cmdReturn = 0) ifTrue: [
 		^self
