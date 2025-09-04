@@ -32,7 +32,7 @@ FASTFortranCountSubtreesVisitorTest >> testArrayDeclarationImplicitLowerBound [
 	stmt declarators first dimensions first lowerBound: nil.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 2
+	self assert: visitor count equals: 3
 ]
 
 { #category : 'tests - statements' }
@@ -271,7 +271,7 @@ FASTFortranCountSubtreesVisitorTest >> testDimensionStatement [
 		}.
 
 	stmt accept: visitor.
-	self assert: visitor count equals: 4
+	self assert: visitor count equals: 6
 ]
 
 { #category : 'tests - statements' }
