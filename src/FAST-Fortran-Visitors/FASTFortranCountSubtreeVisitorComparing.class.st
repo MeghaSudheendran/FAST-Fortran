@@ -710,5 +710,5 @@ FASTFortranCountSubtreeVisitorComparing >> visitModel: aFASTModel [
 			ifTrue: [elem accept: self]
 	].
 
-	^ subtreeRoots size 
+	^ subtreeRoots 
 ]
