@@ -705,10 +705,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitModel: aFASTModel [
 
 	count := 0.
 	subtreeRoots := OrderedCollection new.
-	aFASTModel do: [ :elem |
-		elem isProgramUnit
-			ifTrue: [elem accept: self]
-	].
-
-	^ subtreeRoots 
+	(aFASTModel allWithSubTypesOf: FASTFortranProgramUnit) do: [ :e |
+		e accept: self ].
+	
 ]
