@@ -1,8 +1,7 @@
 Class {
-	#name : 'FASTFortranCountSubtreeVisitorComparing',
+	#name : 'FASTFortranSubtreeVisitor',
 	#superclass : 'Object',
 	#instVars : [
-		'count',
 		'subtreeRoots'
 	],
 	#category : 'FAST-Fortran-Visitors-Visitor',
@@ -10,35 +9,28 @@ Class {
 	#tag : 'Visitor'
 }
 
-{ #category : 'accessing' }
-FASTFortranCountSubtreeVisitorComparing >> count [
-
-	^ count
-]
-
 { #category : 'initialization' }
-FASTFortranCountSubtreeVisitorComparing >> initialize [ 
+FASTFortranSubtreeVisitor >> initialize [ 
 
 	super initialize.
 
-	count := 0.
 	subtreeRoots := OrderedCollection new.
 ]
 
 { #category : 'accessing' }
-FASTFortranCountSubtreeVisitorComparing >> subtreeRoots [
+FASTFortranSubtreeVisitor >> subtreeRoots [
 
 	^ subtreeRoots
 ]
 
 { #category : 'accessing' }
-FASTFortranCountSubtreeVisitorComparing >> subtreeRoots: aSubtreeRoot [
+FASTFortranSubtreeVisitor >> subtreeRoots: aSubtreeRoot [
 
 	subtreeRoots add: aSubtreeRoot
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranArrayRange: aFASTFortranArrayRange [
+FASTFortranSubtreeVisitor >> visitFASTFortranArrayRange: aFASTFortranArrayRange [
 
 	aFASTFortranArrayRange children ifNotEmpty: [ "count := count + 1"
 		subtreeRoots add: aFASTFortranArrayRange ].
@@ -51,7 +43,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranArrayRange: aFASTFort
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranArrayVariable: aFASTFortranArrayVariable [
+FASTFortranSubtreeVisitor >> visitFASTFortranArrayVariable: aFASTFortranArrayVariable [
 
 	aFASTFortranArrayVariable children ifNotEmpty: [ "count := count + 1" 
 		subtreeRoots add:aFASTFortranArrayVariable ].
@@ -66,7 +58,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranArrayVariable: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAssignmentExpression: aFASTFortranAssignmentExpression [
+FASTFortranSubtreeVisitor >> visitFASTFortranAssignmentExpression: aFASTFortranAssignmentExpression [
 
 	aFASTFortranAssignmentExpression children ifNotEmpty: [ "count := count + 1"
 		subtreeRoots add: aFASTFortranAssignmentExpression ].
@@ -77,7 +69,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAssignmentExpression:
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAssignmentStatement: aFASTFortranAssignmentStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranAssignmentStatement: aFASTFortranAssignmentStatement [
 
 	aFASTFortranAssignmentStatement children ifNotEmpty: [ "count := count + 1 "
 		subtreeRoots add: aFASTFortranAssignmentStatement ].
@@ -88,7 +80,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAssignmentStatement: 
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAsterisk: aFASTFortranAsterisk [
+FASTFortranSubtreeVisitor >> visitFASTFortranAsterisk: aFASTFortranAsterisk [
 
 	aFASTFortranAsterisk children ifNotEmpty: [ "count := count + 1"
 		subtreeRoots add: aFASTFortranAsterisk ].
@@ -97,7 +89,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranAsterisk: aFASTFortra
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranBinaryExpression: aFASTFortranBinaryExpression [
+FASTFortranSubtreeVisitor >> visitFASTFortranBinaryExpression: aFASTFortranBinaryExpression [
 
 	aFASTFortranBinaryExpression children ifNotEmpty: [ "count := count + 1"
 		subtreeRoots add: aFASTFortranBinaryExpression ].
@@ -108,14 +100,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranBinaryExpression: aFA
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranBooleanLiteral: aFASTFortranBooleanLiteral [
+FASTFortranSubtreeVisitor >> visitFASTFortranBooleanLiteral: aFASTFortranBooleanLiteral [
 
 	aFASTFortranBooleanLiteral children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranBooleanLiteral ]
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCallStatement: aFASTFortranCallStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranCallStatement: aFASTFortranCallStatement [
 
 	aFASTFortranCallStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranCallStatement ].
@@ -126,14 +118,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCallStatement: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCharacterLiteral: aFASTFortranCharacterLiteral [
+FASTFortranSubtreeVisitor >> visitFASTFortranCharacterLiteral: aFASTFortranCharacterLiteral [
 
 	aFASTFortranCharacterLiteral children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranCharacterLiteral ]
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCharacterType: aFASTFortranCharacterType [
+FASTFortranSubtreeVisitor >> visitFASTFortranCharacterType: aFASTFortranCharacterType [
 
 	aFASTFortranCharacterType children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranCharacterType ].
@@ -142,7 +134,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCharacterType: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranComment: aFASTFortranComment [
+FASTFortranSubtreeVisitor >> visitFASTFortranComment: aFASTFortranComment [
 
 	aFASTFortranComment children ifNotEmpty: [ subtreeRoots add:aFASTFortranComment ].
 	"aFASTFortranComment statementContainer ifNotNil: [
@@ -150,7 +142,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranComment: aFASTFortran
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCommonGroup: aFASTFortranCommonGroup [
+FASTFortranSubtreeVisitor >> visitFASTFortranCommonGroup: aFASTFortranCommonGroup [
 
 	aFASTFortranCommonGroup children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranCommonGroup ].
@@ -161,7 +153,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCommonGroup: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCommonStatement: aFASTFortranCommonStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranCommonStatement: aFASTFortranCommonStatement [
 
 	aFASTFortranCommonStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranCommonStatement ].
@@ -172,7 +164,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranCommonStatement: aFAS
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranContinueStatement: aFASTFortranContinueStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranContinueStatement: aFASTFortranContinueStatement [
 
 	aFASTFortranContinueStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranContinueStatement ]
@@ -181,7 +173,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranContinueStatement: aF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDataGroup: aFASTFortranDataGroup [
+FASTFortranSubtreeVisitor >> visitFASTFortranDataGroup: aFASTFortranDataGroup [
 
 	aFASTFortranDataGroup children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranDataGroup ].
@@ -193,7 +185,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDataGroup: aFASTFortr
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDataStatement: aFASTFortranDataStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranDataStatement: aFASTFortranDataStatement [
 
 	aFASTFortranDataStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranDataStatement ].
@@ -205,7 +197,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDataStatement: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDimensionStatement: aFASTFortranDimensionStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranDimensionStatement: aFASTFortranDimensionStatement [
 
 	aFASTFortranDimensionStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranDimensionStatement ].
@@ -217,7 +209,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDimensionStatement: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDoStatement: aFASTFortranDoStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranDoStatement: aFASTFortranDoStatement [
 
 	aFASTFortranDoStatement children ifNotEmpty: [
 		subtreeRoots add: aFASTFortranDoStatement ].
@@ -233,7 +225,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDoStatement: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDoublePrecisionType: aFASTFortranDoublePrecisionType [
+FASTFortranSubtreeVisitor >> visitFASTFortranDoublePrecisionType: aFASTFortranDoublePrecisionType [
 
 	aFASTFortranDoublePrecisionType children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranDoublePrecisionType ].
@@ -242,14 +234,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranDoublePrecisionType: 
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranEntryStatement: aFASTFortranEntryStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranEntryStatement: aFASTFortranEntryStatement [
 
 	aFASTFortranEntryStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranEntryStatement ]
 
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranEquivalenceGroup: aFASTFortranEquivalenceGroup [
+FASTFortranSubtreeVisitor >> visitFASTFortranEquivalenceGroup: aFASTFortranEquivalenceGroup [
 
 	aFASTFortranEquivalenceGroup children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranEquivalenceGroup ].
@@ -258,7 +250,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranEquivalenceGroup: aFA
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranEquivalenceStatement: aFASTFortranEquivalenceStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranEquivalenceStatement: aFASTFortranEquivalenceStatement [
 
 	aFASTFortranEquivalenceStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranEquivalenceStatement ].
@@ -268,14 +260,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranEquivalenceStatement:
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranExitStatement: aFASTFortranExitStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranExitStatement: aFASTFortranExitStatement [
 
 	aFASTFortranExitStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranExitStatement ]
 	
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranExternalStatement: aFASTFortranExternalStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranExternalStatement: aFASTFortranExternalStatement [
 
 	aFASTFortranExternalStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranExternalStatement ].
@@ -284,7 +276,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranExternalStatement: aF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFieldAccess: aFASTFortranFieldAccess [
+FASTFortranSubtreeVisitor >> visitFASTFortranFieldAccess: aFASTFortranFieldAccess [
 
 	aFASTFortranFieldAccess children ifNotEmpty: [ subtreeRoots add:aFASTFortranFieldAccess ].
 	aFASTFortranFieldAccess pointer ifNotNil: [
@@ -294,7 +286,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFieldAccess: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFormatStatement: aFASTFortranFormatStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranFormatStatement: aFASTFortranFormatStatement [
 
 	aFASTFortranFormatStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranFormatStatement ].
@@ -303,7 +295,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFormatStatement: aFAS
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunction: aFASTFortranFunction [
+FASTFortranSubtreeVisitor >> visitFASTFortranFunction: aFASTFortranFunction [
 
 	aFASTFortranFunction children ifNotEmpty: [ subtreeRoots add:aFASTFortranFunction ].
 
@@ -321,7 +313,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunction: aFASTFortra
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionCall: aFASTFortranFunctionCall [
+FASTFortranSubtreeVisitor >> visitFASTFortranFunctionCall: aFASTFortranFunctionCall [
 
 	aFASTFortranFunctionCall children ifNotEmpty: [ subtreeRoots add:aFASTFortranFunctionCall ].
 	aFASTFortranFunctionCall arguments ifNotEmpty: [
@@ -329,7 +321,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionCall: aFASTFo
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionStatement: aFASTFortranFunctionStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranFunctionStatement: aFASTFortranFunctionStatement [
 
 	aFASTFortranFunctionStatement children ifNotEmpty: [
 	subtreeRoots add:aFASTFortranFunctionStatement ].
@@ -342,7 +334,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionStatement: aF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionTypeDeclarationStatement: aFASTFortranFunctionTypeDeclarationStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranFunctionTypeDeclarationStatement: aFASTFortranFunctionTypeDeclarationStatement [
 
 	aFASTFortranFunctionTypeDeclarationStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranFunctionTypeDeclarationStatement ].
@@ -352,7 +344,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranFunctionTypeDeclarati
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranGoToComputedStatement: aFASTFortranGoToComputedStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranGoToComputedStatement: aFASTFortranGoToComputedStatement [
 
 	aFASTFortranGoToComputedStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranGoToComputedStatement ].
@@ -364,7 +356,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranGoToComputedStatement
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranGoToStatement: aFASTFortranGoToStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranGoToStatement: aFASTFortranGoToStatement [
 
 	aFASTFortranGoToStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranGoToStatement ].
 	aFASTFortranGoToStatement labelReferences ifNotEmpty: [
@@ -374,14 +366,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranGoToStatement: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIOParameter: aFASTFortranIOParameter [ 
+FASTFortranSubtreeVisitor >> visitFASTFortranIOParameter: aFASTFortranIOParameter [ 
 	
 	aFASTFortranIOParameter children ifNotEmpty: [ subtreeRoots add:aFASTFortranIOParameter ].
 	
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfArithmeticStatement: aFASTFortranIfArithmeticStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranIfArithmeticStatement: aFASTFortranIfArithmeticStatement [
 
 	aFASTFortranIfArithmeticStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranIfArithmeticStatement ].
@@ -397,7 +389,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfArithmeticStatement
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfBlockStatement: aFASTFortranIfBlockStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranIfBlockStatement: aFASTFortranIfBlockStatement [
 
 	aFASTFortranIfBlockStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranIfBlockStatement ].
@@ -410,7 +402,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfBlockStatement: aFA
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfLogicalStatement: aFASTFortranIfLogicalStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranIfLogicalStatement: aFASTFortranIfLogicalStatement [
 
 	aFASTFortranIfLogicalStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranIfLogicalStatement ].
@@ -421,13 +413,13 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIfLogicalStatement: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImplicitRange: aFASTFortranImplicitRange [ 
+FASTFortranSubtreeVisitor >> visitFASTFortranImplicitRange: aFASTFortranImplicitRange [ 
 	
 	aFASTFortranImplicitRange children ifNotEmpty: [subtreeRoots add:aFASTFortranImplicitRange ]
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImplicitStatement: aFASTFortranImplicitStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranImplicitStatement: aFASTFortranImplicitStatement [
 
 	aFASTFortranImplicitStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranImplicitStatement ].
@@ -437,7 +429,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImplicitStatement: aF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImplicitTypingRule: aFASTFortranImplicitTypingRule [
+FASTFortranSubtreeVisitor >> visitFASTFortranImplicitTypingRule: aFASTFortranImplicitTypingRule [
 
 	aFASTFortranImplicitTypingRule children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranImplicitTypingRule ].
@@ -449,7 +441,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImplicitTypingRule: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImpliedDoExpression: aFASTFortranImpliedDoExpression [
+FASTFortranSubtreeVisitor >> visitFASTFortranImpliedDoExpression: aFASTFortranImpliedDoExpression [
 
 	aFASTFortranImpliedDoExpression children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranImpliedDoExpression ].
@@ -461,7 +453,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranImpliedDoExpression: 
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranInquireStatement: aFASTFortranInquireStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranInquireStatement: aFASTFortranInquireStatement [
 
 	aFASTFortranInquireStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranInquireStatement ].
@@ -471,14 +463,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranInquireStatement: aFA
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIntegerLiteral: aFASTFortranIntegerLiteral [
+FASTFortranSubtreeVisitor >> visitFASTFortranIntegerLiteral: aFASTFortranIntegerLiteral [
 
 	aFASTFortranIntegerLiteral children ifNotEmpty: [ subtreeRoots add:aFASTFortranIntegerLiteral ]
 	
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIntegerType: aFASTFortranIntegerType [
+FASTFortranSubtreeVisitor >> visitFASTFortranIntegerType: aFASTFortranIntegerType [
 
 	aFASTFortranIntegerType children ifNotEmpty: [ subtreeRoots add:aFASTFortranIntegerType ].
 	aFASTFortranIntegerType size ifNotNil: [
@@ -486,7 +478,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIntegerType: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIntrinsicStatement: aFASTFortranIntrinsicStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranIntrinsicStatement: aFASTFortranIntrinsicStatement [
 
 	aFASTFortranIntrinsicStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranIntrinsicStatement ].
@@ -496,7 +488,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranIntrinsicStatement: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLabelReference: aFASTFortranLabelReference [
+FASTFortranSubtreeVisitor >> visitFASTFortranLabelReference: aFASTFortranLabelReference [
 
 	aFASTFortranLabelReference children ifNotEmpty: [ subtreeRoots add:aFASTFortranLabelReference ].
 	"aFASTFortranLabelReference referencer ifNotNil: [
@@ -504,7 +496,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLabelReference: aFAST
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLogicalType: aFASTFortranLogicalType [
+FASTFortranSubtreeVisitor >> visitFASTFortranLogicalType: aFASTFortranLogicalType [
 
 	aFASTFortranLogicalType children ifNotEmpty: [ subtreeRoots add:aFASTFortranLogicalType ].
 	aFASTFortranLogicalType size ifNotNil: [
@@ -512,7 +504,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLogicalType: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLoopControlExpression: aFASTFortranLoopControlExpression [
+FASTFortranSubtreeVisitor >> visitFASTFortranLoopControlExpression: aFASTFortranLoopControlExpression [
 
 	aFASTFortranLoopControlExpression children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranLoopControlExpression ].
@@ -526,7 +518,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranLoopControlExpression
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranOpenStatement: aFASTFortranOpenStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranOpenStatement: aFASTFortranOpenStatement [
 
 	aFASTFortranOpenStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranOpenStatement ].
 	aFASTFortranOpenStatement ioParameters ifNotEmpty: [
@@ -534,7 +526,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranOpenStatement: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranParameterStatement: aFASTFortranParameterStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranParameterStatement: aFASTFortranParameterStatement [
 
 	aFASTFortranParameterStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranParameterStatement ].
@@ -544,14 +536,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranParameterStatement: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranPauseStatement: aFASTFortranPauseStatement [ 
+FASTFortranSubtreeVisitor >> visitFASTFortranPauseStatement: aFASTFortranPauseStatement [ 
 	
 	aFASTFortranPauseStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranPauseStatement ].
 	
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranPrintStatement: aFASTFortranPrintStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranPrintStatement: aFASTFortranPrintStatement [
 
 	aFASTFortranPrintStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranPrintStatement ].
 	aFASTFortranPrintStatement format ifNotNil: [
@@ -561,7 +553,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranPrintStatement: aFAST
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranProgramMain: aFASTFortranProgramMain [
+FASTFortranSubtreeVisitor >> visitFASTFortranProgramMain: aFASTFortranProgramMain [
 
 	aFASTFortranProgramMain children ifNotEmpty: [ subtreeRoots add:aFASTFortranProgramMain ].
 	aFASTFortranProgramMain declarations ifNotEmpty: [
@@ -575,7 +567,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranProgramMain: aFASTFor
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranReadStatement: aFASTFortranReadStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranReadStatement: aFASTFortranReadStatement [
 
 	aFASTFortranReadStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranReadStatement ].
 	aFASTFortranReadStatement arguments ifNotEmpty: [
@@ -585,13 +577,13 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranReadStatement: aFASTF
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranRealLiteral: aFASTFortranRealLiteral [ 
+FASTFortranSubtreeVisitor >> visitFASTFortranRealLiteral: aFASTFortranRealLiteral [ 
 	
 	aFASTFortranRealLiteral children ifNotEmpty: [ subtreeRoots add:aFASTFortranRealLiteral ]
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranRealType: aFASTFortranRealType [
+FASTFortranSubtreeVisitor >> visitFASTFortranRealType: aFASTFortranRealType [
 
 	aFASTFortranRealType children ifNotEmpty: [ subtreeRoots add:aFASTFortranRealType ].
 	aFASTFortranRealType size ifNotNil: [
@@ -599,7 +591,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranRealType: aFASTFortra
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranReturnStatement: aFASTFortranReturnStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranReturnStatement: aFASTFortranReturnStatement [
 
 	aFASTFortranReturnStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranReturnStatement ].
@@ -609,7 +601,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranReturnStatement: aFAS
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranRewindStatement: aFASTFortranRewindStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranRewindStatement: aFASTFortranRewindStatement [
 
 	aFASTFortranRewindStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranRewindStatement ].
@@ -619,13 +611,13 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranRewindStatement: aFAS
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranScalarVariable: aFASTFortranScalarVariable [
+FASTFortranSubtreeVisitor >> visitFASTFortranScalarVariable: aFASTFortranScalarVariable [
 	aFASTFortranScalarVariable children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranScalarVariable ].
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranStatementBlock: aFASTFortranStatementBlock [
+FASTFortranSubtreeVisitor >> visitFASTFortranStatementBlock: aFASTFortranStatementBlock [
 
 	aFASTFortranStatementBlock children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranStatementBlock ].
@@ -639,14 +631,14 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranStatementBlock: aFAST
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranStopStatement: aFASTFortranStopStatement [ 
+FASTFortranSubtreeVisitor >> visitFASTFortranStopStatement: aFASTFortranStopStatement [ 
 	
 	aFASTFortranStopStatement children ifNotEmpty: [ subtreeRoots add:aFASTFortranStopStatement ].
 	
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranSubroutine: aFASTFortranSubroutine [
+FASTFortranSubtreeVisitor >> visitFASTFortranSubroutine: aFASTFortranSubroutine [
 
 	aFASTFortranSubroutine children ifNotEmpty: [ subtreeRoots add:aFASTFortranSubroutine ].
 	aFASTFortranSubroutine declarations ifNotEmpty: [
@@ -661,7 +653,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranSubroutine: aFASTFort
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranUnaryExpression: aFASTFortranUnaryExpression [
+FASTFortranSubtreeVisitor >> visitFASTFortranUnaryExpression: aFASTFortranUnaryExpression [
 
 	aFASTFortranUnaryExpression children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranUnaryExpression ].
@@ -670,7 +662,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranUnaryExpression: aFAS
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranVariableDeclarationStatement: aFASTFortranVariableDeclarationStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranVariableDeclarationStatement: aFASTFortranVariableDeclarationStatement [
 
 	aFASTFortranVariableDeclarationStatement children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranVariableDeclarationStatement ].
@@ -683,7 +675,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranVariableDeclarationSt
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranVariableDeclarator: aFASTFortranVariableDeclarator [
+FASTFortranSubtreeVisitor >> visitFASTFortranVariableDeclarator: aFASTFortranVariableDeclarator [
 
 	aFASTFortranVariableDeclarator children ifNotEmpty: [
 		subtreeRoots add:aFASTFortranVariableDeclarator ].
@@ -693,7 +685,7 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranVariableDeclarator: a
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranWriteStatement: aFASTFortranWriteStatement [
+FASTFortranSubtreeVisitor >> visitFASTFortranWriteStatement: aFASTFortranWriteStatement [
 
 	aFASTFortranWriteStatement children ifNotEmpty: [subtreeRoots add:aFASTFortranWriteStatement ].
 	aFASTFortranWriteStatement arguments ifNotEmpty: [
@@ -701,11 +693,12 @@ FASTFortranCountSubtreeVisitorComparing >> visitFASTFortranWriteStatement: aFAST
 ]
 
 { #category : 'visiting' }
-FASTFortranCountSubtreeVisitorComparing >> visitModel: aFASTModel [
+FASTFortranSubtreeVisitor >> visitModel: aFASTModel [
 
-	count := 0.
 	subtreeRoots := OrderedCollection new.
+
 	(aFASTModel allWithSubTypesOf: FASTFortranProgramUnit) do: [ :e |
 		e accept: self ].
+	^subtreeRoots
 	
 ]
