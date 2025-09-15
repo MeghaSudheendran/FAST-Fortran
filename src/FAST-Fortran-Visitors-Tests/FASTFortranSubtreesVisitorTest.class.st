@@ -2,7 +2,7 @@
 A FASTFortranExporterVisitorTest is a test class for testing the behavior of FASTFortranExporterVisitor
 "
 Class {
-	#name : 'FASTFortranCountSubtreesVisitorTestForPaper',
+	#name : 'FASTFortranSubtreesVisitorTest',
 	#superclass : 'FASTFortranAbstractVisitorTest',
 	#category : 'FAST-Fortran-Visitors-Tests-Visitor',
 	#package : 'FAST-Fortran-Visitors-Tests',
@@ -10,23 +10,23 @@ Class {
 }
 
 { #category : 'running' }
-FASTFortranCountSubtreesVisitorTestForPaper >> newVisitor [
+FASTFortranSubtreesVisitorTest >> newVisitor [
 
-	^FASTFortranCountSubtreeVisitorComparing new
+	^FASTFortranSubtreeVisitor new
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testArrayDeclaration [
+FASTFortranSubtreesVisitorTest >> testArrayDeclaration [
 
 	| stmt |
 	stmt := self arrayDeclaration: 'v' dimensions: #( #( '1' '10' ) ).
-
+	"count := SubtreeCounter new count: stmt."
 	stmt accept: visitor.
 	self assert: visitor subtreeRoots size equals: 3
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testArrayDeclarationImplicitLowerBound [
+FASTFortranSubtreesVisitorTest >> testArrayDeclarationImplicitLowerBound [
 	| stmt |
 	stmt := self arrayDeclaration: 'v' dimensions: #( #('1' '10') ).
 	stmt declarators first dimensions first lowerBound: nil.
@@ -36,7 +36,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testArrayDeclarationImplicitLower
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testArrayDeclarationMultipleDimensions [
+FASTFortranSubtreesVisitorTest >> testArrayDeclarationMultipleDimensions [
 	| stmt |
 	stmt := self arrayDeclaration: 'v' dimensions: #( #('1' '10') #('-10' '-1') ).
 
@@ -45,7 +45,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testArrayDeclarationMultipleDimen
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testArrayRange [
+FASTFortranSubtreesVisitorTest >> testArrayRange [
 	| stmt |
 	stmt := FASTFortranArrayRange new
 			lowerBound: (self integerLiteral: '1') ;
@@ -57,7 +57,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testArrayRange [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testArrayVariable [
+FASTFortranSubtreesVisitorTest >> testArrayVariable [
 	| stmt |
 	stmt := FASTFortranArrayVariable new
 		name: 'arr'.
@@ -67,7 +67,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testArrayVariable [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementFunctionCall [
+FASTFortranSubtreesVisitorTest >> testAssignementFunctionCall [
 
 	| stmt |
 	stmt := self
@@ -83,7 +83,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementFunctionCall [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementArrayAssigned [
+FASTFortranSubtreesVisitorTest >> testAssignementStatementArrayAssigned [
 	| stmt |
 	stmt := FASTFortranAssignmentStatement new
 		variable: (self 
@@ -96,7 +96,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementArrayAssi
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementLiteralValue [
+FASTFortranSubtreesVisitorTest >> testAssignementStatementLiteralValue [
 	| stmt |
 	stmt := self assignementStatement: #aVar value: (self logicalLiteral: '.true.').
 
@@ -105,7 +105,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementLiteralVa
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementVariable [
+FASTFortranSubtreesVisitorTest >> testAssignementStatementVariable [
 	| stmt |
 	stmt := self assignementStatement: #a value: #b.
 
@@ -114,7 +114,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testAssignementStatementVariable 
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testBinaryExpression [
+FASTFortranSubtreesVisitorTest >> testBinaryExpression [
 	| expr |
 	expr := FASTFortranBinaryExpression new
 		leftOperand: (self scalarVariable: 'a') ;
@@ -126,7 +126,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testBinaryExpression [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testBinaryExpressionNe [
+FASTFortranSubtreesVisitorTest >> testBinaryExpressionNe [
 	| expr |
 	expr := FASTFortranBinaryExpression new
 		leftOperand: (self scalarVariable: 'a') ;
@@ -138,7 +138,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testBinaryExpressionNe [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testBlockStatementWithCommentAndStatement [
+FASTFortranSubtreesVisitorTest >> testBlockStatementWithCommentAndStatement [
 	"note: positions are approximate, all we need is that the assignement is after the comment"
 	| stmt cmt block |
 
@@ -158,7 +158,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testBlockStatementWithCommentAndS
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementExpressionArg [
+FASTFortranSubtreesVisitorTest >> testCallStatementExpressionArg [
 	| stmt |
 	stmt := self callStatement: 'subrtn' arguments: {
 		self binary: '*' left: #a right: 5 }.
@@ -168,7 +168,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementExpressionArg [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementNoArgs [
+FASTFortranSubtreesVisitorTest >> testCallStatementNoArgs [
 	| stmt |
 	stmt := self callStatement: 'subrtn' arguments: #().
 
@@ -177,7 +177,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementNoArgs [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementWithArgs [
+FASTFortranSubtreesVisitorTest >> testCallStatementWithArgs [
 	| stmt |
 	stmt := self callStatement: 'subrtn' arguments: {
 		self scalarVariable: 'a' .
@@ -188,7 +188,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testCallStatementWithArgs [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testComment [
+FASTFortranSubtreesVisitorTest >> testComment [
 
 	| cmt |
 	cmt := self comment: 'C This is a comment'.
@@ -199,7 +199,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testComment [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testComment72Characters [
+FASTFortranSubtreesVisitorTest >> testComment72Characters [
 	| cmt |
 	cmt := self comment: 'C 3456789 123456789 123456789 123456789 123456789 123456789 123456789 12'.
 
@@ -209,7 +209,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testComment72Characters [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testCommonStatement [
+FASTFortranSubtreesVisitorTest >> testCommonStatement [
 
 	| stmt |
 
@@ -229,7 +229,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testCommonStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testContinueStatement [
+FASTFortranSubtreesVisitorTest >> testContinueStatement [
 	| stmt |
 	stmt := FASTFortranContinueStatement new
 		label: '110'.
@@ -239,7 +239,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testContinueStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testDataStatement [
+FASTFortranSubtreesVisitorTest >> testDataStatement [
 
 	| stmt |
 
@@ -260,7 +260,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testDataStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testDimensionStatement [
+FASTFortranSubtreesVisitorTest >> testDimensionStatement [
 
 	| stmt |
 
@@ -275,7 +275,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testDimensionStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatement [
+FASTFortranSubtreesVisitorTest >> testDoStatement [
 	| stmt |
 
 	stmt := self doStatement: #(i 1 max 1) statements: #().
@@ -286,7 +286,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatementNoIncrement [
+FASTFortranSubtreesVisitorTest >> testDoStatementNoIncrement [
 	| stmt |
 
 	stmt := self doStatement: #(i 1 max) statements: #().
@@ -297,7 +297,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatementNoIncrement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatementWithLabel [
+FASTFortranSubtreesVisitorTest >> testDoStatementWithLabel [
 
 	| stmt |
 	stmt := self
@@ -313,7 +313,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testDoStatementWithLabel [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testEmptySubroutineNoParameters [
+FASTFortranSubtreesVisitorTest >> testEmptySubroutineNoParameters [
 
 	| sub |
 	sub := self subroutine: 'blah'.
@@ -324,7 +324,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testEmptySubroutineNoParameters [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testEmptySubroutineTwoParameters [
+FASTFortranSubtreesVisitorTest >> testEmptySubroutineTwoParameters [
 
 	| sub |
 	sub := self subroutine: 'blah'.
@@ -340,7 +340,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testEmptySubroutineTwoParameters 
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testEntryStatement [
+FASTFortranSubtreesVisitorTest >> testEntryStatement [
 
 	| stmt |
 	stmt := FASTFortranEntryStatement new
@@ -354,7 +354,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testEntryStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testEquivalenceStatement [
+FASTFortranSubtreesVisitorTest >> testEquivalenceStatement [
 
 	| stmt |
 
@@ -378,7 +378,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testEquivalenceStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testExitStatement [
+FASTFortranSubtreesVisitorTest >> testExitStatement [
 	| stmt |
 	stmt := self exitStatement: nil.
 
@@ -389,7 +389,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testExitStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testExternalStatement [
+FASTFortranSubtreesVisitorTest >> testExternalStatement [
 	| stmt |
 	stmt := self externalStatement: 'aVar'.
 
@@ -399,7 +399,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testExternalStatement [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFieldAccess [
+FASTFortranSubtreesVisitorTest >> testFieldAccess [
 	| fct varAccess writeStatement |
 	fct := self functionDeclaration: 'blah'.
 	fct declaredType: nil.
@@ -417,7 +417,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFieldAccess [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFormatStatement [
+FASTFortranSubtreesVisitorTest >> testFormatStatement [
 	| stmt |
 	stmt := FASTFortranFormatStatement new
 		formatDescription: '(/8x)' ;
@@ -430,7 +430,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFormatStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoParameterNoStatement [
+FASTFortranSubtreesVisitorTest >> testFunctionNoParameterNoStatement [
 
 	| node |
 	node := self functionDeclaration: 'BLAH'.
@@ -439,7 +439,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoParameterNoStatemen
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoParameterWithStatement [
+FASTFortranSubtreesVisitorTest >> testFunctionNoParameterWithStatement [
 	| node stmt |
 	stmt := self returnStatement: (self scalarVariable: 'i').
 
@@ -451,7 +451,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoParameterWithStatem
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoReturnType [
+FASTFortranSubtreesVisitorTest >> testFunctionNoReturnType [
 	| fct |
 	fct := self functionDeclaration: 'blah'.
 	fct declaredType: nil.
@@ -461,7 +461,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionNoReturnType [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionStatement [
+FASTFortranSubtreesVisitorTest >> testFunctionStatement [
 	| node |
 	node := FASTFortranFunctionStatement new.
 	node name: 'fct'.
@@ -473,7 +473,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionWithParameterNoStatement [
+FASTFortranSubtreesVisitorTest >> testFunctionWithParameterNoStatement [
 	| node |
 	node := self functionDeclaration: 'BLAH'.
 	self entity: node parameters: #(i j).
@@ -483,7 +483,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testFunctionWithParameterNoStatem
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testGotoComputedStatement [
+FASTFortranSubtreesVisitorTest >> testGotoComputedStatement [
 	| stmt |
 	stmt := FASTFortranGoToComputedStatement new
 		labelReferences: { self labelReference: '110' . self labelReference: '120' . self labelReference: '130'} ;
@@ -495,7 +495,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testGotoComputedStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testGotoStatement [
+FASTFortranSubtreesVisitorTest >> testGotoStatement [
 	| stmt |
 	stmt := self gotoStatement: '110'.
 
@@ -504,7 +504,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testGotoStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfArithmeticStatement [
+FASTFortranSubtreesVisitorTest >> testIfArithmeticStatement [
 	| stmt |
 
 	stmt := self ifArithmetic: #a negative: 10 null: 20 positive: 30.
@@ -514,7 +514,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfArithmeticStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementEmpty [
+FASTFortranSubtreesVisitorTest >> testIfBlockStatementEmpty [
 	| stmt |
 	stmt := self ifBlock: (self scalarVariable: 'bool') then: #() else: nil.
 
@@ -523,7 +523,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementEmpty [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementEmptyBinaryCondition [
+FASTFortranSubtreesVisitorTest >> testIfBlockStatementEmptyBinaryCondition [
 
 	| stmt cond |
 	cond := self binary: '.gt.' left: #a right: 0.
@@ -533,7 +533,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementEmptyBinaryCo
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementNested [
+FASTFortranSubtreesVisitorTest >> testIfBlockStatementNested [
 	| stmt |
 	stmt := self
 		ifBlock: (self scalarVariable: 'bool1')
@@ -548,7 +548,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementNested [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementWithElseBlock [
+FASTFortranSubtreesVisitorTest >> testIfBlockStatementWithElseBlock [
 	| stmt |
 	stmt := self
 		ifBlock: (self scalarVariable: 'bool')
@@ -560,7 +560,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementWithElseBlock
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementWithThenBlock [
+FASTFortranSubtreesVisitorTest >> testIfBlockStatementWithThenBlock [
 	| stmt |
 	stmt := self
 		ifBlock: (self scalarVariable: 'bool')
@@ -572,7 +572,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfBlockStatementWithThenBlock
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIfLogicalStatementEmpty [
+FASTFortranSubtreesVisitorTest >> testIfLogicalStatementEmpty [
 	| stmt |
 	stmt := FASTFortranIfLogicalStatement new
 		condition: (self scalarVariable: 'bool') ;
@@ -584,7 +584,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIfLogicalStatementEmpty [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testImplicitStatement [
+FASTFortranSubtreesVisitorTest >> testImplicitStatement [
 	| stmt |
 	stmt := self implicitStatement.
 
@@ -593,7 +593,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testImplicitStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testImplicitStatementSeveralRules [
+FASTFortranSubtreesVisitorTest >> testImplicitStatementSeveralRules [
 
 	| stmt |
 	stmt := self implicitStatement.
@@ -611,7 +611,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testImplicitStatementSeveralRules
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testImpliedDoExpression [
+FASTFortranSubtreesVisitorTest >> testImpliedDoExpression [
 	| expr |
 
 	expr := FASTFortranImpliedDoExpression new
@@ -623,7 +623,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testImpliedDoExpression [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testInquireStatement [
+FASTFortranSubtreesVisitorTest >> testInquireStatement [
 	| stmt |
 	stmt := FASTFortranInquireStatement new
 		ioParameters: {
@@ -637,7 +637,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testInquireStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testIntrinsicStatement [
+FASTFortranSubtreesVisitorTest >> testIntrinsicStatement [
 
 	| stmt |
 
@@ -651,7 +651,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testIntrinsicStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testLabelledStatement [
+FASTFortranSubtreesVisitorTest >> testLabelledStatement [
 	| stmt |
 	stmt := self returnStatement: nil.
 	stmt label: '100'.
@@ -662,7 +662,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testLabelledStatement [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testLongDataStatementLine [
+FASTFortranSubtreesVisitorTest >> testLongDataStatementLine [
 
 	| stmt |
 
@@ -683,7 +683,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testLongDataStatementLine [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testLongFormatLine [
+FASTFortranSubtreesVisitorTest >> testLongFormatLine [
 
 	| stmt |
 
@@ -698,7 +698,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testLongFormatLine [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testLongLine [
+FASTFortranSubtreesVisitorTest >> testLongLine [
 	| stmt |
 	stmt := self declarationStatement: #character variables: #(abc1 abc2 abc3 abc4 abc5 abc6 abc7 abc8 abc9 abc10 abc11 abc12 abc13 abc14 abc15 abc16 abc17 abc18 abc19 abc20 abc21 abc22 abc23 abc24 abc25).
 
@@ -708,7 +708,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testLongLine [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testLongLineDontBreak [
+FASTFortranSubtreesVisitorTest >> testLongLineDontBreak [
 	| stmt |
 	stmt := self declarationStatement: #character variables: #(abc1 abc2 abc3 abc4 abc5 abc6 abc7 abc8 abc9 abc10 abc11 abc12 abc13 abc14 abc15 abc16 abc17 abc18 abc19 abc20 abc21 abc22 abc23 abc24 abc25).
 
@@ -720,7 +720,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testLongLineDontBreak [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testMainProgram [
+FASTFortranSubtreesVisitorTest >> testMainProgram [
 	| node |
 	node := FASTFortranProgramMain new
 		name: 'BLAH' ;
@@ -733,7 +733,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testMainProgram [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterType [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationCharacterType [
 	| stmt |
 	stmt := self declarationStatement: #character variables: #(r).
 
@@ -743,7 +743,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterType [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterTypeStarSize [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationCharacterTypeStarSize [
 	| stmt |
 	stmt := self declarationStatement: #(character *) variables: #(str).
 
@@ -753,7 +753,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterTypeSt
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterTypeWithSize [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationCharacterTypeWithSize [
 	| stmt |
 	stmt := self declarationStatement: #(character 10) variables: #(str).
 
@@ -763,7 +763,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationCharacterTypeWi
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationDoublePrecisionType [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationDoublePrecisionType [
 	| stmt |
 	stmt := self declarationStatement: (FASTFortranDoublePrecisionType new) variables: #(r).
 
@@ -773,7 +773,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationDoublePrecision
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationIntegerTypeWithSize [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationIntegerTypeWithSize [
 	| stmt |
 	stmt := self declarationStatement: #(integer 8) variables: #(i).
 
@@ -783,7 +783,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationIntegerTypeWith
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationLogicalType [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationLogicalType [
 	| stmt |
 	stmt := self declarationStatement: #logical variables: #(r).
 
@@ -793,7 +793,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationLogicalType [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationRealType [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationRealType [
 	| stmt |
 	stmt := self declarationStatement: #real variables: #(r).
 
@@ -803,7 +803,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationRealType [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationTwoVariables [
+FASTFortranSubtreesVisitorTest >> testOneDeclarationTwoVariables [
 	| stmt |
 	stmt := FASTFortranFunctionTypeDeclarationStatement new
 		declaredType: (self makeType: #integer) ;
@@ -817,7 +817,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOneDeclarationTwoVariables [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOpenStatement [
+FASTFortranSubtreesVisitorTest >> testOpenStatement [
 	| stmt |
 	stmt := FASTFortranOpenStatement new
 		ioParameters: {
@@ -832,7 +832,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOpenStatement [
 ]
 
 { #category : 'tests - operator precedence' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceNoParentheses [
+FASTFortranSubtreesVisitorTest >> testOperatorsPrecedenceNoParentheses [
 	
 	| expr |
 	expr := self binary: '+' left: #v right: 5.
@@ -843,7 +843,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceNoParenthe
 ]
 
 { #category : 'tests - operator precedence' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubHasHigherPrecedence [
+FASTFortranSubtreesVisitorTest >> testOperatorsPrecedenceSubHasHigherPrecedence [
 	
 	| expr |
 	expr := self binary: '+' left: #i right: 5.
@@ -855,7 +855,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubHasHigh
 ]
 
 { #category : 'tests - operator precedence' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubHasLowerPrecedence [
+FASTFortranSubtreesVisitorTest >> testOperatorsPrecedenceSubHasLowerPrecedence [
 	
 	| expr |
 	expr := self binary: '*' left: #i right: 5.
@@ -867,7 +867,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubHasLowe
 ]
 
 { #category : 'tests - operator precedence' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubUnary [
+FASTFortranSubtreesVisitorTest >> testOperatorsPrecedenceSubUnary [
 	
 	| expr |
 	expr := self binary: '.and.' left: #logical1 right: (self unary: '.not.' operand: #logical2).
@@ -878,7 +878,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testOperatorsPrecedenceSubUnary [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementEmpty [
+FASTFortranSubtreesVisitorTest >> testPauseStatementEmpty [
 	| stmt |
 	stmt := FASTFortranPauseStatement new.
 
@@ -888,7 +888,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementEmpty [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementWithInteger [
+FASTFortranSubtreesVisitorTest >> testPauseStatementWithInteger [
 	| stmt |
 	stmt := FASTFortranParameterStatement new
 		declarators: (self variableDeclarators: #(pi msg)) ;
@@ -902,7 +902,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementWithInteger [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementWithString [
+FASTFortranSubtreesVisitorTest >> testPauseStatementWithString [
 	| stmt |
 	stmt := FASTFortranPauseStatement new
 		displayArgument: '''error''' ;
@@ -914,7 +914,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testPauseStatementWithString [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testPrintStatement [
+FASTFortranSubtreesVisitorTest >> testPrintStatement [
 	| stmt |
 	stmt := self printStatement: { self characterLiteral: 'message' }.
 
@@ -924,7 +924,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testPrintStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testReadStatement [
+FASTFortranSubtreesVisitorTest >> testReadStatement [
 	| stmt |
 	stmt := self
 		readStatement: #(V)
@@ -941,7 +941,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testReadStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testReturnStatementEmpty [
+FASTFortranSubtreesVisitorTest >> testReturnStatementEmpty [
 	| stmt |
 	stmt :=  self returnStatement: nil.
 
@@ -951,7 +951,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testReturnStatementEmpty [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testReturnStatementLiteralValue [
+FASTFortranSubtreesVisitorTest >> testReturnStatementLiteralValue [
 	| stmt |
 	stmt := self returnStatement: (self realLiteral: '3.5').
 
@@ -961,7 +961,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testReturnStatementLiteralValue [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testRewindStatement [
+FASTFortranSubtreesVisitorTest >> testRewindStatement [
 	| stmt |
 	stmt := FASTFortranRewindStatement new
 		ioParameters: {
@@ -976,7 +976,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testRewindStatement [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementEmpty [
+FASTFortranSubtreesVisitorTest >> testStopStatementEmpty [
 	| stmt |
 	stmt := FASTFortranStopStatement new.
 
@@ -986,7 +986,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementEmpty [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementWithInteger [
+FASTFortranSubtreesVisitorTest >> testStopStatementWithInteger [
 	| stmt |
 	stmt := FASTFortranStopStatement new
 		displayArgument: '1' ;
@@ -998,7 +998,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementWithInteger [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementWithString [
+FASTFortranSubtreesVisitorTest >> testStopStatementWithString [
 	| stmt |
 	stmt := FASTFortranStopStatement new
 		displayArgument: '''error''' ;
@@ -1010,7 +1010,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testStopStatementWithString [
 ]
 
 { #category : 'tests' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testStringConcatOperator [
+FASTFortranSubtreesVisitorTest >> testStringConcatOperator [
 	| stmt |
 	stmt := self binary: '//' left: #texte right: ' a string'.
 
@@ -1020,7 +1020,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testStringConcatOperator [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testStringLiteralWithQuote [
+FASTFortranSubtreesVisitorTest >> testStringLiteralWithQuote [
 	| expr |
 	expr := self characterLiteral: 'a ''''string'''' with quotes'.
 
@@ -1030,7 +1030,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testStringLiteralWithQuote [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testTwoDeclarationsTwoVariables [
+FASTFortranSubtreesVisitorTest >> testTwoDeclarationsTwoVariables [
 	| sub stmt |
 	sub := self subroutine: 'blah'.
 
@@ -1051,7 +1051,7 @@ FASTFortranCountSubtreesVisitorTestForPaper >> testTwoDeclarationsTwoVariables [
 ]
 
 { #category : 'tests - statements' }
-FASTFortranCountSubtreesVisitorTestForPaper >> testWriteStatement [
+FASTFortranSubtreesVisitorTest >> testWriteStatement [
 	| stmt |
 	stmt := self writeStatement: #( 'message' ).
 
